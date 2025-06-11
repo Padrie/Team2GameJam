@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyStats>().TakeDamage(50);
+            other.GetComponent<EnemyStats>().TakeDamage(100);
             print("AAAa");
         }
     }

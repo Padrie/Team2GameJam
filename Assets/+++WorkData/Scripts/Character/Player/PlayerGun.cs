@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
@@ -7,10 +8,13 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] ParticleSystem particleSystem;
     [SerializeField] float projectileForce;
+    Vector3 originalPos;
+
 
     public void Start()
     {
         playerCamera = Camera.main;
+        originalPos = playerCamera.transform.localPosition;
     }
 
     private void Update()
@@ -32,6 +36,7 @@ public class PlayerGun : MonoBehaviour
             );
 
             particleSystem.Play();
+            StartCoroutine(CameraShake());
 
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             if (rb)
@@ -39,5 +44,23 @@ public class PlayerGun : MonoBehaviour
                 rb.AddForce(shootDirection * projectileForce);
             }
         }
+    }
+
+    IEnumerator CameraShake()
+    {
+        float elapsed = 0f;
+        float shakeAmount = 0.2f;
+        float shakeDuration = 0.05f;
+
+        while (elapsed < shakeDuration)
+        {
+            Vector3 randomPoint = originalPos + Random.insideUnitSphere * shakeAmount;
+            playerCamera.transform.localPosition = randomPoint;
+
+            elapsed += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        playerCamera.transform.localPosition = originalPos; // Reset to original position
     }
 }
