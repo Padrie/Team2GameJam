@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     [Header("Health")]
-    public float currentHealth;
+    [Min(0)]public float currentHealth;
     public float maxHealth;
     [Header("Attack")]
     public int attackDamage;
@@ -25,7 +25,7 @@ public class EnemyStats : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (currentHealth == 0)
         {
             Die();
             return false;
@@ -38,6 +38,6 @@ public class EnemyStats : MonoBehaviour
     {
         OnEnemyDied?.Invoke();
 
-        DestroyImmediate(gameObject);
+        Destroy(gameObject);
     }
 }

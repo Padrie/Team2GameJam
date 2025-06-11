@@ -47,13 +47,8 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator Attack()
     {
-        bool whatever = true;
-        while (whatever)
-        {
-            enemyStats.audioSource.Play();
-            whatever = player.GetComponent<PlayerTestScript>().TakeDamage(enemyStats.attackDamage);
-            yield return new WaitForSeconds(enemyStats.attackSpeed);
-        }
-        StopCoroutine(Attack());
+        enemyStats.audioSource.Play();
+        player.GetComponent<PlayerTestScript>().TakeDamage(enemyStats.attackDamage);
+        yield return new WaitForSeconds(enemyStats.attackSpeed);
     }
 }
