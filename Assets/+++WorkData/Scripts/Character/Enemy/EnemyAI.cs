@@ -17,11 +17,16 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        StartCoroutine(UpdateDestination());
     }
 
-    private void Update()
+    IEnumerator UpdateDestination()
     {
-        agent.destination = player.transform.position;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            agent.destination = player.transform.position;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

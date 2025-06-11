@@ -43,8 +43,7 @@ public class EnemySpawner : MonoBehaviour
                 
                 for (int i = 0; i < spawnAmountPerInterval; i++)
                 {
-                    GameObject obj = Instantiate(spawnObject);
-                    obj.transform.position = gameObject.transform.position;
+                    GameObject obj = Instantiate(spawnObject, gameObject.transform);
                     spawnList.Add(obj);
                 }
             }

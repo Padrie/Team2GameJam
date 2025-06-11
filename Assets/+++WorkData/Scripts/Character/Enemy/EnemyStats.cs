@@ -1,3 +1,5 @@
+using MyBox;
+using System;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
@@ -9,20 +11,33 @@ public class EnemyStats : MonoBehaviour
     public int attackDamage;
     public float attackSpeed;
 
+    bool a;
+
+    public static event Action OnEnemyDied;
+
     private void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    public bool TakeDamage(int damage)
+    public bool TakeDamage(float damage)
     {
         currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
+            Die();
             return false;
         }
 
         return true;
+    }
+
+    [ButtonMethod]
+    public void Die()
+    {
+        OnEnemyDied?.Invoke();
+
+        DestroyImmediate(gameObject);
     }
 }
