@@ -17,6 +17,10 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+    }
+
+    private void Update()
+    {
         agent.destination = player.transform.position;
     }
 

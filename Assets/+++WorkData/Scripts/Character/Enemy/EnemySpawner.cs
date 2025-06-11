@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int maxSpawnAmount;
     [SerializeField] GameObject spawnObject;
 
-    public List<GameObject> spawnList = new List<GameObject>();
+    List<GameObject> spawnList = new List<GameObject>();
 
     private void Start()
     {
