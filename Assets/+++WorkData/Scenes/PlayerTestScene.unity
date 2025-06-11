@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 499581363}
   - component: {fileID: 499581362}
   - component: {fileID: 499581361}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 28, y: 1, z: 28}
+  m_LocalScale: {x: 56, y: 1, z: 56}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -842,6 +842,11 @@ GameObject:
   - component: {fileID: 1700758484}
   - component: {fileID: 1700758486}
   - component: {fileID: 1700758485}
+  - component: {fileID: 1700758488}
+  - component: {fileID: 1700758487}
+  - component: {fileID: 1700758489}
+  - component: {fileID: 1700758490}
+  - component: {fileID: 1700758491}
   m_Layer: 0
   m_Name: Player
   m_TagString: GameController
@@ -858,7 +863,7 @@ Transform:
   m_GameObject: {fileID: 1700758483}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -880,10 +885,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 1476092446}
   characterController: {fileID: 1700758486}
-  playerBody: {fileID: 0}
+  playerBody: {fileID: 1586519007}
+  gravity: -9.81
+  velocity: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundDistance: 1.1
   WalkSpeed: 10
   RunSpeed: 14
-  sensitivity: 400
+  JumpHeight: 5
+  sensitivity: 500
 --- !u!143 &1700758486
 CharacterController:
   m_ObjectHideFlags: 0
@@ -909,6 +922,90 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1700758487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700758483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855b9b854e0e45e09ca619171decefd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 0}
+  playerController: {fileID: 1700758485}
+  walkState: {fileID: 0}
+  runState: {fileID: 0}
+  dashState: {fileID: 0}
+  crouchState: {fileID: 0}
+  jumpState: {fileID: 1700758489}
+  fallState: {fileID: 1700758490}
+--- !u!114 &1700758488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700758483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ddce59c75c4334290eb011caad44f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 1700758487}
+  lastState: {fileID: 0}
+--- !u!114 &1700758489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700758483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774237f762ee47079a1c23946da7baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 0}
+  playerController: {fileID: 1700758485}
+  idleState: {fileID: 1700758487}
+  fallState: {fileID: 1700758490}
+  dashState: {fileID: 0}
+--- !u!114 &1700758490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700758483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8acfeb7e37474986bfc8fa3684e3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 0}
+  playerController: {fileID: 1700758485}
+  idleState: {fileID: 1700758487}
+  dashState: {fileID: 0}
+  glideState: {fileID: 1700758491}
+--- !u!114 &1700758491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700758483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b63f28338474b28be725d57286690e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 0}
+  playerController: {fileID: 1700758485}
+  idleState: {fileID: 1700758487}
+  dashState: {fileID: 0}
 --- !u!1 &1710462756
 GameObject:
   m_ObjectHideFlags: 0
