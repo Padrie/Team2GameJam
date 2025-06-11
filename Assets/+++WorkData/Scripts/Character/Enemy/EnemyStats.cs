@@ -10,14 +10,15 @@ public class EnemyStats : MonoBehaviour
     [Header("Attack")]
     public int attackDamage;
     public float attackSpeed;
-
-    bool a;
+    [SerializeField] AudioClip attackSound;
+    public AudioSource audioSource;
 
     public static event Action OnEnemyDied;
 
     private void Awake()
     {
         currentHealth = maxHealth;
+        audioSource.resource = attackSound;
     }
 
     public bool TakeDamage(float damage)
@@ -33,8 +34,7 @@ public class EnemyStats : MonoBehaviour
         return true;
     }
 
-    [ButtonMethod]
-    public void Die()
+    private void Die()
     {
         OnEnemyDied?.Invoke();
 
